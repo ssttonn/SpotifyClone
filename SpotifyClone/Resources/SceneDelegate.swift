@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         self.window = window
         
-        if AuthManager.shared.isSignedIn {
+        if SpotifyAuthManager.shared.isSignedIn {
             self.window?.rootViewController = TabBarViewController()
         } else {
             let navVC = UINavigationController(rootViewController: WelcomeViewController())
@@ -32,6 +32,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
         }
         self.window?.makeKeyAndVisible()
+
+        SpotifyAuthManager.shared.refreshAccessToken{ success in
+            print(success)
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
